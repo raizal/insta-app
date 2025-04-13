@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/prod/Dockerfile
       args:
-        VITE_BASE_URL: ${VITE_BASE_URL:-http://localhost:8080}
+        BASE_URL: ${BASE_URL:-http://localhost:8080}
     container_name: insta-clone-prod
     restart: unless-stopped
     volumes:

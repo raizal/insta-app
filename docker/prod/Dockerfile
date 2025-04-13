@@ -54,7 +54,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 WORKDIR /var/www/backend
 
 # Copy backend files
-COPY backend-insta-clone /var/www/backend
+COPY backend /var/www/backend
 
 # Install backend dependencies
 RUN composer install --optimize-autoloader --no-dev
@@ -66,14 +66,14 @@ RUN chown -R www-data:www-data /var/www/backend/storage /var/www/backend/bootstr
 WORKDIR /var/www/frontend
 
 # Copy frontend files
-COPY frontend-insta-clone /var/www/frontend
+COPY frontend /var/www/frontend
 
 # Install frontend dependencies
 RUN pnpm install
 
 # Set environment variables for frontend build
-ARG VITE_BASE_URL=http://localhost:8080
-ENV VITE_BASE_URL=${VITE_BASE_URL}
+ARG BASE_URL=http://localhost:8080
+ENV VITE_BASE_URL=${BASE_URL}
 
 # Build frontend with environment variables
 RUN pnpm run build

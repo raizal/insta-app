@@ -4,8 +4,8 @@ A full-stack Instagram clone built with Laravel (backend) and React (frontend).
 
 ## Project Structure
 
-- `backend-insta-clone/` - Laravel backend API
-- `frontend-insta-clone/` - React frontend application
+- `backend/` - Laravel backend API
+- `frontend/` - React frontend application
 - `docker/` - Docker configuration files for development and production
 
 ## Development Setup
@@ -54,7 +54,7 @@ A full-stack Instagram clone built with Laravel (backend) and React (frontend).
 2. Configure environment variables (optional):
    ```bash
    # Set the base URL for your production environment
-   export VITE_BASE_URL=https://your-production-domain.com
+   export BASE_URL=https://your-production-domain.com
    ```
 
 3. Start the production environment:
@@ -73,11 +73,11 @@ A full-stack Instagram clone built with Laravel (backend) and React (frontend).
 ## Environment Variables
 
 ### Development
-- Frontend environment variables are stored in `frontend-insta-clone/.env`
-- Backend environment variables are stored in `backend-insta-clone/.env`
+- Frontend environment variables are stored in `frontend/.env`
+- Backend environment variables are stored in `backend/.env`
 
 ### Production
-- `VITE_BASE_URL` - The base URL for API requests (defaults to http://localhost:8080)
+- `BASE_URL` - The base URL for API requests (defaults to http://localhost:8080)
 
 ## Database
 

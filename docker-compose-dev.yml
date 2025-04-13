@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www
     volumes:
-      - ./backend-insta-clone:/var/www
+      - ./backend:/var/www
     ports:
       - "9000:9000"
     networks:
@@ -15,7 +15,7 @@ services:
     depends_on:
       - mysql
     build:
-      context: ./backend-insta-clone
+      context: ./backend
       dockerfile: Dockerfile
     healthcheck:
       test: ["CMD", "php", "artisan", "--version"]
@@ -28,12 +28,12 @@ services:
     ports:
       - "3000:3000"
     build:
-      context: ./frontend-insta-clone
+      context: ./frontend
       dockerfile: Dockerfile.dev
     container_name: insta-clone-frontend
     restart: unless-stopped
     volumes:
-      - ./frontend-insta-clone:/app
+      - ./frontend:/app
     networks:
       - insta-clone-network
     depends_on:
@@ -46,7 +46,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./backend-insta-clone:/var/www
+      - ./backend:/var/www
       - ./docker/dev/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - insta-clone-network
