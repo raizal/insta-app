@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+  app:
+    image: php:8.2-fpm
+    container_name: insta-clone-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./backend-insta-clone:/var/www
+    ports:
+      - "9000:9000"
+    networks:
+      - insta-clone-network
+    depends_on:
+      - mysql
+    build:
+      context: ./backend-insta-clone
+      dockerfile: Dockerfile
+    healthcheck:
+      test: ["CMD", "php", "artisan", "--version"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    image: node:18-alpine
+    ports:
+      - "3000:3000"
+    build:
+      context: ./frontend-insta-clone
+      dockerfile: Dockerfile.dev
+    container_name: insta-clone-frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend-insta-clone:/app
+    networks:
+      - insta-clone-network
+    depends_on:
+      - app
+
+  webserver:
+    image: nginx:alpine
+    container_name: insta-clone-webserver
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend-insta-clone:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - insta-clone-network
+    depends_on:
+      - app
+      - frontend
+
+  mysql:
+    image: mysql:8.0
+    container_name: insta-clone-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: password
+      MYSQL_USER: user
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - insta-clone-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  mysql-data:
+
+networks:
+  insta-clone-network:
+    driver: bridge 
