@@ -47,7 +47,7 @@ services:
       - "8000:80"
     volumes:
       - ./backend-insta-clone:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/dev/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - insta-clone-network
     depends_on:
