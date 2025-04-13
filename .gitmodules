@@ -1,0 +1,7 @@
+[submodule "backend"]
+	path = backend
+	url = git@github.com:raizal/insta-app-backend.git
+
+[submodule "frontend"]
+	path = frontend
+	url = git@github.com:raizal/insta-app-frontend.git
