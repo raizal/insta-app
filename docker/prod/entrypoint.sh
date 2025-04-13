@@ -16,6 +16,7 @@ chown -R www-data:www-data /var/www/frontend/dist
 
 # Generate the key if not already generated
 cd /var/www/backend
+cp .env.example .env
 php artisan key:generate --no-interaction
 
 # Create a MySQL script to check if MySQL is up
