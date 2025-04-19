@@ -12,7 +12,7 @@ services:
     volumes:
       - ./storage:/var/www/backend/storage
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     networks:
       - insta-clone-network
     depends_on:
@@ -29,7 +29,7 @@ services:
       VITE_BASE_URL: ${VITE_BASE_URL:-http://localhost:8080}
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0-debian
     container_name: insta-clone-mysql-prod
     restart: unless-stopped
     environment:
